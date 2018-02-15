@@ -1,5 +1,7 @@
 package com.abcbank.models;
 
+import java.util.Objects;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -33,6 +35,23 @@ public class BankService {
 
 	public void setBankServiceName(String bankServiceName) {
 		this.bankServiceName = bankServiceName;
+	}
+	
+	@Override
+	public boolean equals(Object object) {
+		Objects.requireNonNull(object);
+		if(object instanceof BankService) {
+			BankService bankService = (BankService) object;
+			return bankService.getBankServiceName().equals(this.getBankServiceName());
+		}
+		else {
+			return false;
+		}
+	}
+	
+	@Override
+	public int hashCode() {
+		return bankServiceName.length() + 13;
 	}
 
 }
