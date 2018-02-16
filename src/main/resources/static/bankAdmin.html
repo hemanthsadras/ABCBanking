@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>ABC Banking</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="scripts/lib/jquery.min.js"></script>
+  <script src="scripts/lib/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+  <script src="scripts/lib/jquery.dataTables.min.js"></script>
+  <script src="scripts/lib/dataTables.bootstrap.min.js"></script>
+  <script src="scripts/bankServices.js"></script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-default" id="navigationMenu">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">ABC Bank Admin Services</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="bankAdmin.html">Services</a></li>
+       <li><a href="bankCounters.html">Counters</a></li>
+    </ul>
+  </div>
+</nav>
+  
+<div class="container topContainer">
+	<div class="row">
+		 <div class="col-md-3">
+		  <h3>Bank Services</h3>
+		   
+      </div>
+	</div>
+    <div class="row">
+        <div class="col-md-9">
+                <table class="table table-hover" id="bankServiceTable">
+                        <thead>
+                            <tr>
+                                <th>Service Name</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                       
+                    </table>
+              
+        </div>
+    </div>
+    
+    <br />
+    
+    <div class="row">
+     <button class="btn btn-default" id="addServiceBtn" data-toggle="modal" data-target="#newBankService">
+   		Add Service
+  	</button>
+    </div>
+    
+</div>
+
+ <div class="modal fade" id="newBankService" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Service</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+              <label for="serviceName">Service Name</label>
+              <input type="text" class="form-control" id="serviceName" placeholder="Service Name">
+              <br />
+              <label for="serviceDescription">Service Description</label>
+              <input type="text" class="form-control" id="serviceDescription" placeholder="Service Description">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" id="newServiceAddBtn" data-dismiss="modal">Add</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

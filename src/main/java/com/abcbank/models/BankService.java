@@ -11,6 +11,7 @@ public class BankService {
 	@Id
 	private String bankServiceId;
 	private String bankServiceName;
+	private String bankServiceDescription;
 	
 	public BankService() {
 		// empty constructor
@@ -37,6 +38,14 @@ public class BankService {
 		this.bankServiceName = bankServiceName;
 	}
 	
+	public String getBankServiceDescription() {
+		return bankServiceDescription;
+	}
+
+	public void setBankServiceDescription(String bankServiceDescription) {
+		this.bankServiceDescription = bankServiceDescription;
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		Objects.requireNonNull(object);

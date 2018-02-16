@@ -1,6 +1,6 @@
 package com.abcbank.models;
 
-public class Token {
+public class Token  implements Comparable<Token>{
 
 	private String customerId;
 	private CustomerType customerType;
@@ -37,6 +37,25 @@ public class Token {
 
 	public void setCustomerType(CustomerType customerType) {
 		this.customerType = customerType;
+	}
+
+	@Override
+	public int compareTo(Token otherToken) {
+		boolean isTokenOnePremium = isTokenPremium(this);
+		boolean istokenTwoPremium = isTokenPremium(otherToken);
+		if(isTokenOnePremium && !istokenTwoPremium) {
+			return 1;
+		}
+		else if(!isTokenOnePremium && istokenTwoPremium) {
+			return -1;
+		}
+		else {
+			return 0;
+		}
+	}
+	
+	public boolean isTokenPremium(Token token) {
+		return token.getCustomerType() == CustomerType.PREMIUM;
 	}
 
 }

@@ -10,6 +10,7 @@ public class BankCounter {
 
 	@Id
 	private String counterId;
+	private String bankCounterName;
 	private BankService bankService;
 	private PriorityQueue<Token> customerQueue = new PriorityQueue<>(new TokenComparator());
 
@@ -35,6 +36,14 @@ public class BankCounter {
 
 	public void setCustomerQueue(PriorityQueue<Token> customerQueue) {
 		this.customerQueue = customerQueue;
+	}
+
+	public String getBankCounterName() {
+		return bankCounterName;
+	}
+
+	public void setBankCounterName(String bankCounterName) {
+		this.bankCounterName = bankCounterName;
 	}
 
 }
