@@ -1,11 +1,9 @@
 package com.abcbank.models;
 
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "documents")
+@Document(collection = "customers")
 public class Customer {
 
 	@Id
@@ -13,7 +11,6 @@ public class Customer {
 	private String name;
 	private String emailId;
 	private CustomerType customerType;
-	private List<String> bankServices;
 
 	public String getId() {
 		return id;
@@ -45,14 +42,6 @@ public class Customer {
 
 	public void setCustomerType(CustomerType customerType) {
 		this.customerType = customerType;
-	}
-
-	public List<String> getBankServices() {
-		return bankServices;
-	}
-
-	public void setBankServices(List<String> bankServices) {
-		this.bankServices = bankServices;
 	}
 
 }

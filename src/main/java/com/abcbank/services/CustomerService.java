@@ -1,5 +1,7 @@
 package com.abcbank.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,15 @@ public class CustomerService {
 	
 	public Customer getCustomer(String customerId) {
 		return this.customerRepository.findOne(customerId);
+	}
+
+	public List<Customer> getAllCustomers ()
+	{
+		return this.customerRepository.findAll();
+	}
+	
+	public Customer getCustomerByEmailId(String emailId) {
+		return this.customerRepository.findByEmailId(emailId);
 	}
 	
 	

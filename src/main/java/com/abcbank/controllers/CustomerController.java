@@ -1,6 +1,5 @@
 package com.abcbank.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.abcbank.models.Customer;
-import com.abcbank.models.CustomerType;
 import com.abcbank.services.CustomerService;
 
 @RestController
@@ -32,22 +30,18 @@ public class CustomerController {
 	}
 	
 	@GetMapping
-	public Customer getCustomer() {
-		Customer customer = new Customer();
-		customer.setName("hemanth");
-		customer.setEmailId("hemanthsadras@gmail.com");
-		customer.setId("89079");
-		customer.setCustomerType(CustomerType.PREMIUM);
-		List<String> bankServices = new ArrayList<>();
-		bankServices.add("123");
-		bankServices.add("234");
-		customer.setBankServices(bankServices);
-		return customer;
+	public List<Customer> getCustomer() {
+		return this.customerService.getAllCustomers();
 	}
 	
 	@GetMapping("/{customerId}")
 	public Customer getCustomer(@PathVariable String customerId) {
 		return this.customerService.getCustomer(customerId);
+	}
+	
+	@GetMapping("/email/{emailId}/")
+	public Customer getCustomerByEmailId(@PathVariable String emailId) {
+		return this.customerService.getCustomerByEmailId(emailId);
 	}
 
 }

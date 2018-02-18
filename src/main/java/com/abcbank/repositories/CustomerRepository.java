@@ -8,4 +8,5 @@ import com.abcbank.models.Customer;
 @Repository
 public interface CustomerRepository extends MongoRepository<Customer,String> {
 
+	Customer findByEmailId(String emailId);
 }
