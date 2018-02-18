@@ -57,6 +57,11 @@ public class BankAdminController {
 		return this.bankAdminService.addBankCounter(bankCounter);
 	}
 	
+	@DeleteMapping("/bankCounter/{bankCounterId}")
+	public void deleteBankCounter(@PathVariable String bankCounterId) {
+		this.bankAdminService.deleteBankCounter(bankCounterId);
+	}
+	
 	@GetMapping("/bankCounter")
 	public List<BankCounter> getAllBankCounters() {
 		return this.bankAdminService.getAllBankCounters();
