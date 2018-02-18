@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>ABC Banking</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="scripts/lib/jquery.min.js"></script>
+  <script src="scripts/lib/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+  <script src="scripts/dashboard.js"></script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-default" id="navigationMenu">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">ABC Bank Dash Board</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="account.html">Home</a></li>
+    </ul>
+  </div>
+</nav>
+  
+<div class="container topContainer">
+	<div class="row" data-bind="template: { name: 'counterTemplate', foreach: bankCounters }">	 
+    </div>
+    
+    <script type="text/html" id="counterTemplate">
+		<div class="col-md-3">
+		  <h3 data-bind="text: bankCounterName"></h3>
+		  <div data-bind="foreach: customerQueue" class="list-group">
+               <a data-bind="text: customer.name" class="list-group-item">
+			   </a>
+			   
+          </div>
+        </div>
+    </script>
+</div>
+   
+   
+
+
+</body>
+</html>
