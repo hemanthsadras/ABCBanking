@@ -39,9 +39,8 @@
  										bankService.bankServiceId = $("#services option:selected").val();
  										
  										var token = new Object();
- 										token.customerId = loggedInCustomer.id;
- 										token.customerType = loggedInCustomer.customerType;
- 										token.tokenStatus = "InProgress";
+ 										token.customer = loggedInCustomer;
+ 										token.tokenStatus = "IN_PROGRESS";
  										token.bankService = bankService;
  										
  										generateToken(token);
@@ -70,6 +69,18 @@
      
      
      function generateToken(token) {
-    	 alert(token.tokenStatus);
+    	 var resturi = baseUrl + "token";
+    	 $.ajax({
+				type : "POST",
+				url : resturi,
+				data : JSON.stringify(token),
+				contentType : "application/json",
+				success : function(result) {
+					alert(result);
+				},
+				error : function(result) {
+					alert("error");
+				}
+			});
      }
  });

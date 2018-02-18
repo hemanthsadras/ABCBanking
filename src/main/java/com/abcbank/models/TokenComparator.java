@@ -21,7 +21,7 @@ public class TokenComparator implements Comparator<Token> {
 	}
 	
 	public boolean isTokenPremium(Token token) {
-		return token.getCustomerType() == CustomerType.PREMIUM;
+		return token.getCustomer().getCustomerType() == CustomerType.PREMIUM;
 	}
 
 }

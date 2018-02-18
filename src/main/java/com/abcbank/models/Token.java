@@ -2,18 +2,9 @@ package com.abcbank.models;
 
 public class Token  implements Comparable<Token>{
 
-	private String customerId;
-	private CustomerType customerType;
+	private Customer customer;
 	private BankService bankService;
 	private TokenStatus tokenStatus;
-
-	public String getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
-	}
 
 	public BankService getBankService() {
 		return bankService;
@@ -31,12 +22,15 @@ public class Token  implements Comparable<Token>{
 		this.tokenStatus = tokenStatus;
 	}
 
-	public CustomerType getCustomerType() {
-		return customerType;
+
+	public Customer getCustomer ()
+	{
+		return customer;
 	}
 
-	public void setCustomerType(CustomerType customerType) {
-		this.customerType = customerType;
+	public void setCustomer ( Customer customer )
+	{
+		this.customer = customer;
 	}
 
 	@Override
@@ -55,7 +49,7 @@ public class Token  implements Comparable<Token>{
 	}
 	
 	public boolean isTokenPremium(Token token) {
-		return token.getCustomerType() == CustomerType.PREMIUM;
+		return token.getCustomer().getCustomerType() == CustomerType.PREMIUM;
 	}
 
 }
