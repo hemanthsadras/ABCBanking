@@ -13,17 +13,17 @@ import com.abcbank.models.Token;
 public class TokenService {
 	
 	@Autowired
-	private BankAdminService bankAdminService;
+	private BankCounterService bankCounterService;
 	
-	public TokenService(BankAdminService bankAdminService) {
-		this.bankAdminService = bankAdminService;
+	public TokenService(BankCounterService bankCounterService) {
+		this.bankCounterService = bankCounterService;
 	}
 	
 	public String assignTokenToCounter(Token token) {
 		BankCounterStrategy bankCounterStrategy = BankCounterStrategyFactory.getInstance(CounterStrategy.GREEDY);
-		BankCounter bankCounter = bankCounterStrategy.getBankCounterForToken(token, bankAdminService);
+		BankCounter bankCounter = bankCounterStrategy.getBankCounterForToken(token, bankCounterService);
 		bankCounter.getCustomerQueue().add(token);
-		this.bankAdminService.updateBankCounter(bankCounter);
+		this.bankCounterService.updateBankCounter(bankCounter);
 		return bankCounter.getBankCounterName();
 		
 	}

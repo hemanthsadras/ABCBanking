@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.abcbank.models.BankCounter;
 import com.abcbank.models.BankService;
+import com.abcbank.models.Token;
 import com.abcbank.repositories.BankCounterRepository;
 import com.abcbank.repositories.BankServiceRepository;
 
@@ -16,12 +17,8 @@ public class BankAdminService {
 	@Autowired
 	private BankServiceRepository bankServiceRepository;
 	
-	@Autowired
-	private BankCounterRepository bankCounterRepository;
-	
-	public BankAdminService(BankServiceRepository bankServiceRepository, BankCounterRepository bankCounterRepository) {
+	public BankAdminService(BankServiceRepository bankServiceRepository) {
 		this.bankServiceRepository = bankServiceRepository;
-		this.bankCounterRepository = bankCounterRepository;
 	}
 	
 	public BankService addBankService(BankService bankService) {
@@ -42,29 +39,5 @@ public class BankAdminService {
 	
 	public List<BankService> getAllBankServices() {
 		return this.bankServiceRepository.findAll();
-	}
-	
-	public BankCounter addBankCounter(BankCounter bankCounter) {
-		return this.bankCounterRepository.insert(bankCounter);
-	}
-	
-	public BankCounter getBankCounter(String bankCounterId) {
-		return this.bankCounterRepository.findOne(bankCounterId);
-	}
-	
-	public void deleteBankCounter(String bankCounterId) {
-		this.bankCounterRepository.delete(bankCounterId);
-	}
-	
-	public BankCounter updateBankCounter(BankCounter bankCounter) {
-		return this.bankCounterRepository.save(bankCounter);
-	}
-	
-	public List<BankCounter> getAllBankCounters() {
-		return this.bankCounterRepository.findAll();
-	}
-	
-	public List<BankCounter> getBankCountersByServiceType(BankService bankService) {
-		return this.bankCounterRepository.findByBankService(bankService);
 	}
 }

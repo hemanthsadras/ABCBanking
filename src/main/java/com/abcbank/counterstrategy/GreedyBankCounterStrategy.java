@@ -8,22 +8,23 @@ import com.abcbank.models.BankService;
 import com.abcbank.models.CustomerType;
 import com.abcbank.models.Token;
 import com.abcbank.services.BankAdminService;
+import com.abcbank.services.BankCounterService;
 
 
 public class GreedyBankCounterStrategy implements BankCounterStrategy {
 
 	
 	@Override
-	public BankCounter getBankCounterForToken ( Token token, BankAdminService bankAdminService)
+	public BankCounter getBankCounterForToken ( Token token, BankCounterService bankCounterService)
 	{
 		BankService bankService = token.getBankService();
-		BankCounter bankCounter = getBankCounterForService(bankService, token.getCustomer().getCustomerType(), bankAdminService);
+		BankCounter bankCounter = getBankCounterForService(bankService, token.getCustomer().getCustomerType(), bankCounterService);
 		return bankCounter;
 	}
 
-	private BankCounter getBankCounterForService ( BankService bankService, CustomerType customerType, BankAdminService bankAdminService )
+	private BankCounter getBankCounterForService ( BankService bankService, CustomerType customerType, BankCounterService bankCounterService )
 	{
-		List<BankCounter> bankCounters = bankAdminService.getBankCountersByServiceType(bankService);
+		List<BankCounter> bankCounters = bankCounterService.getBankCountersByServiceType(bankService);
 		if(customerType == CustomerType.PREMIUM) {
 			return getBankCounterForPremiumType(bankCounters);
 		}

@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.abcbank.models.BankCounter;
 import com.abcbank.models.BankService;
+import com.abcbank.models.Token;
 import com.abcbank.services.BankAdminService;
+import com.abcbank.services.BankCounterService;
 
 @RestController
 @RequestMapping("/admin")
@@ -23,8 +25,12 @@ public class BankAdminController {
 	@Autowired
 	private BankAdminService bankAdminService;
 	
-	public BankAdminController(BankAdminService bankAdminService) {
+	@Autowired
+	private BankCounterService bankCounterService;
+	
+	public BankAdminController(BankAdminService bankAdminService, BankCounterService bankCounterService) {
 		this.bankAdminService = bankAdminService;
+		this.bankCounterService = bankCounterService;
 	}
 	
 	@PostMapping("/bankService")
@@ -54,27 +60,37 @@ public class BankAdminController {
 	
 	@PostMapping("/bankCounter")
 	public BankCounter addBankCounter(@RequestBody BankCounter bankCounter) {
-		return this.bankAdminService.addBankCounter(bankCounter);
+		return this.bankCounterService.addBankCounter(bankCounter);
 	}
 	
 	@DeleteMapping("/bankCounter/{bankCounterId}")
 	public void deleteBankCounter(@PathVariable String bankCounterId) {
-		this.bankAdminService.deleteBankCounter(bankCounterId);
+		this.bankCounterService.deleteBankCounter(bankCounterId);
 	}
 	
 	@GetMapping("/bankCounter")
 	public List<BankCounter> getAllBankCounters() {
-		return this.bankAdminService.getAllBankCounters();
+		return this.bankCounterService.getAllBankCounters();
 	}
 	
 	@PutMapping("/bankCounter")
 	public BankCounter updateBankCounter(@RequestBody BankCounter bankCounter) {
-		return this.bankAdminService.updateBankCounter(bankCounter);
+		return this.bankCounterService.updateBankCounter(bankCounter);
 	}
 	
 	@GetMapping("/bankCounter/{bankCounterId}")
 	public BankCounter getBankCounter(@PathVariable String bankCounterId) {
-		return this.bankAdminService.getBankCounter(bankCounterId);
+		return this.bankCounterService.getBankCounterById(bankCounterId);
+	}
+	
+	@GetMapping("/bankCounter/{bankCounterId}/token")
+	public Token getTokenFromQueue(@PathVariable String bankCounterId) {
+		return this.bankCounterService.getFirstTokenFromQueue(bankCounterId);
+	}
+	
+	@PutMapping("/bankCounter/{bankCounterId}/token")
+	public void processToken(@PathVariable String bankCounterId, @RequestBody Token token) {
+		this.bankCounterService.processToken(bankCounterId,token);
 	}
 	
 }
