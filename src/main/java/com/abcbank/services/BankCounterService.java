@@ -56,6 +56,7 @@ public class BankCounterService {
 	public void processToken(String bankCounterId, Token token) {
 		BankCounter bankCounter = getBankCounterById(bankCounterId);
 		bankCounter.getCustomerQueue().remove();
+		this.bankCounterRepository.save(bankCounter);
 		tokenRepository.insert(token);
 	}
 
