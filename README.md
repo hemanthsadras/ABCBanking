@@ -1,9 +1,10 @@
 # ABCBanking Task
   
-   This project contains three important set of services
+   This project contains four important set of services
    1. Bank Admin services( who can add/delete bank services and can add/delete bank counters)
    2. Counter DashBoard ( which shows list of counters and the respective customers assigned to that counter according to the priority )
    3. User services( who can register/login to avail bank services )
+   4. Counter services ( this services helps to process the tokens )
    
    
  
@@ -40,7 +41,20 @@
   ## Dashboard services
   
       After generating token, users will have access to dashboards where they can see in which counter
-      they are assigned to, and the queue associated with that counter, PREMIUM users will be given priority 
-      over the REGULAR users and dashboard will reflect the same
+      they are assigned to, and the queue associated with that counter, PREMIUM users will be given 
+      priority over the REGULAR users and dashboard will reflect the same
       
   <img src="screenshots/dashboard.png" />
+  
+  ## Counter services
+  
+      Counter service UI will be accessible to service counter employees where they process the 
+      tokens in priority. They can choose to complete the token or cancel the token
+      They can even reassign to another service counter.
+      
+   <img src="screenshots/servicecounter.png" />
+   
+   <img src="screenshots/assignToCounter.png" />
+    
+  
+      
