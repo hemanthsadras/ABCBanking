@@ -5,10 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.abcbank.models.BankCounter;
 import com.abcbank.models.BankService;
-import com.abcbank.models.Token;
-import com.abcbank.repositories.BankCounterRepository;
 import com.abcbank.repositories.BankServiceRepository;
 
 @Service

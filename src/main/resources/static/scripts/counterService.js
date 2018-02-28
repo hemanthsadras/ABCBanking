@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	
+	initializeCounterModal();
 	function TokenViewModel(token) {
 		var self = this;
 		self.customer = ko.observable(token.customer),
@@ -36,9 +37,18 @@ $(document).ready(function() {
 					type : "GET",
 					url : resturi,
 					success : function(response) {
-						tokenViewModel.customer(response.customer);
-						tokenViewModel.bankService(response.bankService);
-						tokenViewModel.tokenStatus(response.tokenStatus);
+						if(response != null) {
+							tokenViewModel.customer(response.customer);
+							tokenViewModel.bankService(response.bankService);
+							tokenViewModel.tokenStatus(response.tokenStatus);
+						}
+						else {
+							alert("no new customers pending");
+							$("#name").val("");
+							$("#email").val("");
+							$("#customerType").val("");
+						}
+						
 						
 					},
 					error : function(result) {
@@ -66,4 +76,48 @@ $(document).ready(function() {
 		});
 	});
 	
+	$("#assignToken").on('click', function(){
+		var counterDialog = $("#serviceCounterDialog");
+		counterDialog.modal('show');
+	});
+	
+	$("#assigntBtn").on('click', function(){
+		var selectedCounterId = $("#counters option:selected").val();
+		var resturi = baseUrl + serviceCounterId + "/token/" + selectedCounterId;
+		
+		 $.ajax({
+				type : "PUT",
+				url : resturi,
+				data : ko.toJSON(tokenViewModel),
+				contentType : "application/json",
+				success : function(response) {
+					getCustomerFromQueue(serviceCounterId);
+				},
+				error : function(result) {
+					alert("error");
+				}
+		});
+		
+		
+	});
+	
+	function initializeCounterModal() {
+		var resturi = "http://localhost:8080/admin/bankCounter";
+		
+		$.ajax({
+			type : "GET",
+			url : resturi,
+			success : function(response) {
+				
+				var counterSelect = $("#counters");
+				$.each(response, function(index,item) {
+					counterSelect.append(new Option(item.bankCounterName, item.counterId));
+				});
+			},
+			error : function(response) {
+				alert("error");
+			}
+		
+		});
+	}
 });

@@ -1,5 +1,7 @@
 package com.abcbank.models;
 
+import java.util.Objects;
+
 public class Token  implements Comparable<Token>{
 
 	private Customer customer;
@@ -38,10 +40,10 @@ public class Token  implements Comparable<Token>{
 		boolean isTokenOnePremium = isTokenPremium(this);
 		boolean istokenTwoPremium = isTokenPremium(otherToken);
 		if(isTokenOnePremium && !istokenTwoPremium) {
-			return 1;
+			return -1;
 		}
 		else if(!isTokenOnePremium && istokenTwoPremium) {
-			return -1;
+			return 1;
 		}
 		else {
 			return 0;
@@ -49,7 +51,19 @@ public class Token  implements Comparable<Token>{
 	}
 	
 	public boolean isTokenPremium(Token token) {
-		return token.getCustomer().getCustomerType() == CustomerType.PREMIUM;
+		return token.getCustomer().getCustomerType().equals(CustomerType.PREMIUM);
+	}
+	
+	@Override
+	public boolean equals(Object token) {
+		Objects.requireNonNull(token);
+		if(token instanceof Token) {
+			Token otherToken = (Token) token;
+			if(otherToken.getCustomer().equals(this.getCustomer()) && otherToken.getBankService().equals(this.getBankService()))
+				return true;
+		}
+		
+		return false;
 	}
 
 }

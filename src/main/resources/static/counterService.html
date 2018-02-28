@@ -17,11 +17,10 @@
 <nav class="navbar navbar-default" id="navigationMenu">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">ABC Bank Admin Services</a>
+      <a class="navbar-brand" href="#">ABC Bank Counter Services</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="counterService.html">Home</a></li>
-       <li><a href="queue.html">Queue</a></li>
+      <li><a href="">Home</a></li>
     </ul>
   </div>
 </nav>
@@ -53,6 +52,8 @@
                    </select>
                    <br />
 	              <button class="form-control" id="processToken">Process and Next</button>
+	              <br />
+	              <button class="form-control" id="assignToken">Assign to another counter</button>
 	              
           </div>
               
@@ -62,6 +63,31 @@
     <br />
     
 </div>
+
+<div class="modal fade" id="serviceCounterDialog" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Assign to Bank Counter</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+              <label for="counters">Counters</label>
+              <select class="form-control" id="counters">
+              	
+              </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" id="assigntBtn" data-dismiss="modal">Assign</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
  
 

@@ -64,5 +64,14 @@ public class BankCounterService {
 		this.bankCounterRepository.delete(bankCounterId);
 		
 	}
+	
+	public void changeTokenCounter(String fromCounterId, String toCounterId, Token token) {
+		BankCounter fromCounter = getBankCounterById(fromCounterId);
+		BankCounter toCounter = getBankCounterById(toCounterId);
+		toCounter.getCustomerQueue().add(token);
+		this.bankCounterRepository.save(toCounter);
+		fromCounter.getCustomerQueue().remove(token);
+		this.bankCounterRepository.save(fromCounter);
+	}
 
 }

@@ -10,10 +10,10 @@ public class TokenComparator implements Comparator<Token> {
 		boolean isTokenOnePremium = isTokenPremium(tokenOne);
 		boolean istokenTwoPremium = isTokenPremium(tokenTwo);
 		if(isTokenOnePremium && !istokenTwoPremium) {
-			return 1;
+			return -1;
 		}
 		else if(!isTokenOnePremium && istokenTwoPremium) {
-			return -1;
+			return 1;
 		}
 		else {
 			return 0;
@@ -21,7 +21,7 @@ public class TokenComparator implements Comparator<Token> {
 	}
 	
 	public boolean isTokenPremium(Token token) {
-		return token.getCustomer().getCustomerType() == CustomerType.PREMIUM;
+		return token.getCustomer().getCustomerType().equals(CustomerType.PREMIUM);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.abcbank.models;
 
+import java.util.Objects;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -42,6 +44,21 @@ public class Customer {
 
 	public void setCustomerType(CustomerType customerType) {
 		this.customerType = customerType;
+	}
+	
+	@Override
+	public boolean equals(Object customer) {
+		Objects.requireNonNull(customer);
+		if(customer instanceof Customer) {
+			Customer that = (Customer) customer;
+			boolean isSameId = that.getId().equals(this.getId());
+			boolean isSameName = that.getName().equals(this.getName());
+			boolean isSameType = that.getCustomerType().equals(this.getCustomerType());
+			boolean isSameEmailId = that.getEmailId().equals(this.getEmailId());
+			return isSameId && isSameName && isSameType && isSameEmailId;
+		}
+		
+		return false;
 	}
 
 }

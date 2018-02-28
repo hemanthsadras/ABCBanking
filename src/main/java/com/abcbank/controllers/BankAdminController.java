@@ -93,4 +93,9 @@ public class BankAdminController {
 		this.bankCounterService.processToken(bankCounterId,token);
 	}
 	
+	@PutMapping("/bankCounter/{fromCounterId}/token/{toCounterId}")
+	public void delegateTokenToAnotherCounter(@PathVariable String fromCounterId, @PathVariable String toCounterId, @RequestBody Token token) {
+		this.bankCounterService.changeTokenCounter(fromCounterId, toCounterId, token);
+	}
+	
 }
