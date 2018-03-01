@@ -1,10 +1,14 @@
 package com.abcbank.services;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.abcbank.exceptions.BankCounterNotFoundException;
+import com.abcbank.exceptions.Messages;
+import com.abcbank.exceptions.TokenNotFoundException;
 import com.abcbank.models.BankCounter;
 import com.abcbank.models.BankService;
 import com.abcbank.models.Token;
@@ -25,11 +29,19 @@ public class BankCounterService {
 	}
 	
 	public List<BankCounter> getAllBankCounters() {
-		return this.bankCounterRepository.findAll();
+		List<BankCounter> bankCounters =  this.bankCounterRepository.findAll();
+		if(bankCounters == null) {
+			throw new BankCounterNotFoundException(Messages.NO_BANK_COUNTER_FOUND);
+		}
+		return bankCounters;
 	}
 	
 	public BankCounter getBankCounterById(String id) {
-		return this.bankCounterRepository.findOne(id);
+		BankCounter bankCounter =  this.bankCounterRepository.findOne(id);
+		if(bankCounter == null) {
+			throw new BankCounterNotFoundException(MessageFormat.format(Messages.BANK_COUNTER_NOT_FOUND, id));
+		}
+		return bankCounter;
 	}
 	
 	public BankCounter addBankCounter(BankCounter bankCounter) {
@@ -40,17 +52,21 @@ public class BankCounterService {
 		return this.bankCounterRepository.save(bankCounter);
 	}
 	
-	public List<BankCounter> getBankCounterByServiceType(BankService bankService) {
-		return this.bankCounterRepository.findByBankService(bankService);
-	}
-	
 	public List<BankCounter> getBankCountersByServiceType(BankService bankService) {
-		return this.bankCounterRepository.findByBankService(bankService);
+		List<BankCounter> bankCounters =  this.bankCounterRepository.findByBankService(bankService);
+		if(bankCounters == null) {
+			throw new BankCounterNotFoundException(MessageFormat.format(Messages.BANK_COUNTER_WITH_SERVICE_TYPE_NOT_FOUND, bankService.getBankServiceName()));
+		}
+		return bankCounters;
 	}
 	
 	public Token getFirstTokenFromQueue(String bankCounterId) {
 		BankCounter bankCounter = getBankCounterById(bankCounterId);
-		return bankCounter.getCustomerQueue().peek();
+		Token token = bankCounter.getCustomerQueue().peek();
+		if(token == null) {
+			throw new TokenNotFoundException(MessageFormat.format(Messages.TOKEN_NOT_FOUND_IN_BANK_COUNTER, bankCounterId));
+		}
+		return token;
 	}
 	
 	public void processToken(String bankCounterId, Token token) {
@@ -61,7 +77,12 @@ public class BankCounterService {
 	}
 
 	public void deleteBankCounter(String bankCounterId) {
-		this.bankCounterRepository.delete(bankCounterId);
+		try {
+			this.bankCounterRepository.delete(bankCounterId);
+		}
+		catch(Exception e) {
+			throw new BankCounterNotFoundException(MessageFormat.format(Messages.BANK_COUNTER_NOT_FOUND, bankCounterId));
+		}
 		
 	}
 	

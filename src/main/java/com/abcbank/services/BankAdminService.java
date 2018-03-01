@@ -1,10 +1,13 @@
 package com.abcbank.services;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.abcbank.exceptions.BankServiceNotFoundException;
+import com.abcbank.exceptions.Messages;
 import com.abcbank.models.BankService;
 import com.abcbank.repositories.BankServiceRepository;
 
@@ -23,7 +26,12 @@ public class BankAdminService {
 	}
 	
 	public void deleteBankService(String id) {
-		this.bankServiceRepository.delete(id);
+		try {
+			this.bankServiceRepository.delete(id);
+		}
+		catch(Exception ex) {
+			throw new BankServiceNotFoundException(MessageFormat.format(Messages.BANK_SERVICE_NOT_FOUND, id));
+		}
 	}
 	
 	public BankService updateBankService(BankService bankService) {
@@ -31,10 +39,19 @@ public class BankAdminService {
 	}
 	
 	public BankService getBankService(String id) {
-		return this.bankServiceRepository.findOne(id);
+		BankService bankService = this.bankServiceRepository.findOne(id);
+		if(bankService == null) {
+			throw new BankServiceNotFoundException(MessageFormat.format(Messages.BANK_SERVICE_NOT_FOUND	, id));
+		}
+		
+		return bankService;
 	}
 	
 	public List<BankService> getAllBankServices() {
-		return this.bankServiceRepository.findAll();
+		List<BankService> bankServices =  this.bankServiceRepository.findAll();
+		if(bankServices == null) {
+			throw new BankServiceNotFoundException(Messages.NO_BANK_SERVICES_FOUND);
+		}
+		return bankServices;
 	}
 }
